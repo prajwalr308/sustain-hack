@@ -132,7 +132,8 @@ export const getStaticPaths = async () => {
     const posts = await res.json();
 
     // Get the paths we want to pre-render based on posts
-    const paths = posts.map((post: any) => ({
+    if(!posts) return { paths: [], fallback: false };
+    const paths = posts?.map((post: any) => ({
       params: { slug: post._id },
     }));
 
