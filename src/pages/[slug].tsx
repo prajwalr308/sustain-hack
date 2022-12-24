@@ -128,19 +128,17 @@ export const getStaticPaths = async () => {
         "User-Agent": "*",
       },
     });
-    const posts = await res.json();
+    const posts = await res.json()||[];
+    
 
     // Get the paths we want to pre-render based on posts
 
     console.log(posts);
-    let paths = [];
-    if (posts.length > 0) {
-      paths = posts?.map((post: any) => ({
+ 
+      const paths = await Array.isArray(posts) ?  posts?.map((post: any) => ({
         params: { slug: post._id },
-      }));
-    } else {
-      paths = [];
-    }
+      })):[];
+  
 
     // We'll pre-render only these paths at build time.
     // { fallback: false } means other routes should 404.

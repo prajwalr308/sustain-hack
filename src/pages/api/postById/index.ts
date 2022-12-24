@@ -4,24 +4,23 @@ import Post from "../../../models/post";
 import dbConnect from "../../../server/lib/dbConnect";
 
 export default async function handler(req: any, res: any) {
-  const { method } = req
+  const { method } = req;
 
-  await dbConnect()
-  console.log("id---------->",req.query)
+  await dbConnect();
+  console.log("id---------->", req.query);
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
-        const post = await Post.findById(req.query.id)
-       
-        res.status(200).json({ success: true, data: post })
+        const post = await Post.findById(req.query.id);
+
+        res.status(200).json({ success: true, data: post });
       } catch (error) {
-       
-        res.status(400).json({ success: false })
+        res.status(400).json({ success: false, data: [] });
       }
-      break
-    
+      break;
+
     default:
-      res.status(400).json({ success: false })
-      break
+      res.status(400).json({ success: false, data: [] });
+      break;
   }
 }

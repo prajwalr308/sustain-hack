@@ -3,5 +3,5 @@ module.exports = {
   images: {
     domains: ["firebasestorage.googleapis.com"],
   },
-  staticPageGenerationTimeout: 1000,
+  staticPageGenerationTimeout: 20000,
 };

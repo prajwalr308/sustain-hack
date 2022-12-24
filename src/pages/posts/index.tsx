@@ -121,14 +121,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
       },
     });
     posts = await res.json();
-    console.log("posts-------------->", posts);
+    
+    
     return {
       props: { posts: posts  },
     };
   } catch (error) {
     console.log(error);
     return {
-      props: { posts: null  },
+      props: { posts: []  },
     };
   }
 

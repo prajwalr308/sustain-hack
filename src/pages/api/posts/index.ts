@@ -23,11 +23,15 @@ export default async function handler(req: any, res: any) {
     case "GET":
       try {
         console.log('ran get')
-        const allPosts = await Post.find({});
-        
+        let allPosts = []
+         allPosts = await Post.find({});
+       if(allPosts ===undefined || allPosts.length ===0){
+        res.json([]);
+      }
         res.json(allPosts);
       } catch (error) {
         console.log("get error",error);
+        res.json([]);
       }
 
       break;
