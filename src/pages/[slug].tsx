@@ -45,7 +45,6 @@ const DeatilsPage = ({ post }: any) => {
   // console.log("ID-------------------", id);
   // console.log("data-------------------", data);
 
-
   if (!post) return <p>No profile data</p>;
 
   return (
@@ -132,10 +131,16 @@ export const getStaticPaths = async () => {
     const posts = await res.json();
 
     // Get the paths we want to pre-render based on posts
-    if(!posts) return { paths: [], fallback: false };
-    const paths = posts?.map((post: any) => ({
-      params: { slug: post._id },
-    }));
+
+    console.log(posts);
+    let paths = [];
+    if (posts.length > 0) {
+      paths = posts?.map((post: any) => ({
+        params: { slug: post._id },
+      }));
+    } else {
+      paths = [];
+    }
 
     // We'll pre-render only these paths at build time.
     // { fallback: false } means other routes should 404.
@@ -150,24 +155,23 @@ export async function getStaticProps(context: any) {
   console.log("This --------------------" + context);
   try {
     const { params } = context;
-  console.log(params);
-  // params contains the post `id`.
-  // If the route is like /posts/1, then params.id is 1
-  const res = await fetch(`${server}/api/postById?id=${params.slug}`, {
-    headers: {
-      Accept: "application/json, text/plain, */*",
-      "User-Agent": "*",
-    },
-  });
+    console.log(params);
+    // params contains the post `id`.
+    // If the route is like /posts/1, then params.id is 1
+    const res = await fetch(`${server}/api/postById?id=${params.slug}`, {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "User-Agent": "*",
+      },
+    });
 
-  const data = await res.json();
-  const post = data?.data;
-  // Pass post data to the page via props
-  return { props: { post } };
+    const data = await res.json();
+    const post = data?.data;
+    // Pass post data to the page via props
+    return { props: { post } };
   } catch (error) {
     console.log("Error happened here!");
     console.error(error);
-    return { props: { post: null} };
+    return { props: { post: null } };
   }
-  
 }
