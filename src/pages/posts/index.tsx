@@ -26,20 +26,20 @@ const Posts: NextPage = ({
   const [postData, setPostData] = useState(posts);
 
   useEffect(() => {
-    // console.log(isActive);
-    // console.log(session);
-    // if(!posts) return;
-    // if (isActive) {
-    //   const activePost = posts?.filter((post: any) => {
-    //     return post.status === "active";
-    //   });
-    //   setPostData(activePost);
-    // } else {
-    //   const inactivePost = posts?.filter((post: any) => {
-    //     return post.status === "inactive";
-    //   });
-    //   setPostData(inactivePost);
-    // }
+    console.log(isActive);
+    console.log(session);
+    if(!posts) return;
+    if (isActive) {
+      const activePost = posts?.filter((post: any) => {
+        return post.status === "active";
+      });
+      setPostData(activePost);
+    } else {
+      const inactivePost = posts?.filter((post: any) => {
+        return post.status === "inactive";
+      });
+      setPostData(inactivePost);
+    }
   }, [isActive]);
   if(!posts) return <p>No post data</p>;
   return (
@@ -95,8 +95,8 @@ const Posts: NextPage = ({
         </div>
         {/* Posts */}
         <div className="m-10 grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-          {posts?.length > 0 && Array.isArray(posts) ? (
-            posts?.map((post: any) => (
+          {postData?.length > 0 && Array.isArray(posts) ? (
+            postData?.map((post: any) => (
               <div key={post.title}>
                 <Post post={post} isActive={isActive} />
               </div>

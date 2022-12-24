@@ -15,12 +15,12 @@ export default async function handler(req: any, res: any) {
 
         res.status(200).json({ success: true, data: post });
       } catch (error) {
-        res.status(400).json({ success: false,  });
+        res.status(400).json({ success: false,data:[]  });
       }
       break;
 
     default:
-      res.status(400).json({ success: false, });
+      res.status(400).json({ success: false,data:[] });
       break;
   }
 }

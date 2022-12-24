@@ -166,7 +166,7 @@ export async function getStaticProps(context: any) {
     const data = await res.json();
     const post = data?.data;
     // Pass post data to the page via props
-    return { props: { post } };
+    return { props: { post:post||null } };
   } catch (error) {
     console.log("Error happened here!");
     console.error(error);
