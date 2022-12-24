@@ -4,7 +4,7 @@ import clientPromise from "../../../server/lib/mongodb";
 
 export default async function handler(req: any, res: any) {
   const client = await clientPromise;
-  
+  const db = client.db("test");
   await dbConnect()
   switch (req.method) {
     case "POST":
@@ -23,15 +23,14 @@ export default async function handler(req: any, res: any) {
     case "GET":
       try {
         console.log('ran get')
-        let allPosts = []
-         allPosts = await Post.find({});
-       if(allPosts ===undefined || allPosts.length ===0){
-        res.json([]);
-      }
-        res.json(allPosts);
+       
+        const allPosts = await db.collection("posts").find({}).toArray();
+
+     
+        res.status(200).json({ success: true, data: allPosts });
       } catch (error) {
         console.log("get error",error);
-        res.json([]);
+        res.status(400).json({ success: false, data:[] });
       }
 
       break;

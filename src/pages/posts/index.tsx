@@ -110,7 +110,7 @@ const Posts: NextPage = ({
 export default Posts;
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  let posts: [] = [];
+ 
   try {
     const res = await fetch(`${server}/api/posts`, {
       method: "GET",
@@ -120,11 +120,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
         "User-Agent": "*",
       },
     });
-    posts = await res.json();
-    
+    const {data} = await res.json();
+
     
     return {
-      props: { posts: posts  },
+      props: { posts: data ||null },
     };
   } catch (error) {
     console.log(error);

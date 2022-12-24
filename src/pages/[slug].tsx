@@ -128,14 +128,14 @@ export const getStaticPaths = async () => {
         "User-Agent": "*",
       },
     });
-    const posts = await res.json()||[];
+    const {data} = await res.json()||[];
     
 
     // Get the paths we want to pre-render based on posts
 
-    console.log(posts);
+    console.log(data);
  
-      const paths = await Array.isArray(posts) ?  posts?.map((post: any) => ({
+      const paths = await Array.isArray(data) ?  data?.map((post: any) => ({
         params: { slug: post._id },
       })):[];
   
