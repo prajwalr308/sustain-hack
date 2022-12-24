@@ -28,13 +28,14 @@ const Posts: NextPage = ({
   useEffect(() => {
     // console.log(isActive);
     // console.log(session);
+    if(!posts) return;
     if (isActive) {
-      const activePost = posts.filter((post: any) => {
+      const activePost = posts?.filter((post: any) => {
         return post.status === "active";
       });
       setPostData(activePost);
     } else {
-      const inactivePost = posts.filter((post: any) => {
+      const inactivePost = posts?.filter((post: any) => {
         return post.status === "inactive";
       });
       setPostData(inactivePost);
@@ -121,11 +122,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
     });
     posts = await res.json();
     console.log("posts-------------->", posts);
+    return {
+      props: { posts: posts  },
+    };
   } catch (error) {
     console.log(error);
+    return {
+      props: { posts: null  },
+    };
   }
 
-  return {
-    props: { posts: posts || null },
-  };
+  
 };
